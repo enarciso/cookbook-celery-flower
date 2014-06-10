@@ -57,7 +57,7 @@ broker_url = sprintf("%s://%s:%s@%s:%d/%s",
   node['celery-flower']['broker']['vhost']
 )
 
-flower_cmd = sprintf("flower --log_file_prefix=%s --port=%s --broker='%s'",
+flower_cmd = sprintf("flower --log_file_prefix='%s' --port='%s' --broker='%s'",
   node['celery-flower']['log_path'],
   #node['celery-flower']['listen_address'],
   node['celery-flower']['listen_port'],
@@ -93,7 +93,7 @@ elsif node['celery-flower']['basic_auth']
 end
 
 if node['celery-flower']['broker_api']['enable']
-  flower_cmd = sprintf("%s --broker_api=%s://%s@%s:%s:%s/api/",
+  flower_cmd = sprintf("%s --broker_api='%s://%s:%s@%s:%s/api/'",
   	flower_cmd,
     node['celery-flower']['broker_api']['protocol'],
     node['celery-flower']['broker']['username'],

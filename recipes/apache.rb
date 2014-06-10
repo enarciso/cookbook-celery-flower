@@ -25,6 +25,8 @@ include_recipe  'apache2::mod_rewrite'
 
 node.override['poise-proxy']['provider'] = 'apache'
 node.override['poise-proxy']['ssl_enabled'] = node['celery-flower']['ssl']['enable']
+node.override['poise-proxy']['ssl_cert_path'] = node['celery-flower']['ssl']['cert']
+node.override['poise-proxy']['ssl_key_path'] = node['celery-flower']['ssl']['key']
 
 poise_proxy node['fqdn'] do 
   port node['celery-flower']['listen_port']
