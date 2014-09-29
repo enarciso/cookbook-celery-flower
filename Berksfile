@@ -22,9 +22,5 @@ cookbook 'poise-proxy',
   :git => 'git://github.com/poise/poise-proxy.git',
   :branch => 'master'
 
-cookbook 'flower',
-  :git => 'git://github.com/enarciso/cookbook-flower.git',
-  :branch => 'master'
-
 cookbook 'flower-test',
   :path => 'test/cookbooks/flower-test'

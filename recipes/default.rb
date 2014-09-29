@@ -21,6 +21,10 @@ include_recipe 'build-essential'
 include_recipe 'python'
 include_recipe 'runit'
 
+user node['celery-flower']['user']
+group node['celery-flower']['group']
+directory "/var/lib/celery-flower"
+
 #FIXME: Fix the rhel platform_family compatibility
 #case node['platform_family']
 #  when 'debian'
@@ -35,6 +39,7 @@ include_recipe 'runit'
 
 python_virtualenv 'flower-virtualenv' do
   owner node['celery-flower']['user']
+  group node['celery-flower']['group']
   path node['celery-flower']['virtualenv']
   not_if { ::File.exists?("#{node['celery-flower']['virtualenv']}/bin/pip") }
 end
@@ -57,10 +62,10 @@ broker_url = sprintf("%s://%s:%s@%s:%d/%s",
   node['celery-flower']['broker']['vhost']
 )
 
-flower_cmd = sprintf("flower --log_file_prefix='%s' --port='%s' --broker='%s'",
+flower_cmd = sprintf("flower --log_file_prefix='%s' --port='%s' --auto_refresh --persistent --db='%s' --broker='%s'",
   node['celery-flower']['log_path'],
-  #node['celery-flower']['listen_address'],
   node['celery-flower']['listen_port'],
+  node['celery-flower']['db_path'],
   broker_url
 )
 
