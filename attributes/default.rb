@@ -1,5 +1,5 @@
-default['celery-flower']['user'] = 'www-data'
-default['celery-flower']['group'] = 'www-data'
+default['celery-flower']['user'] = 'celerymon'
+default['celery-flower']['group'] = 'celerymon'
 default['celery-flower']['version'] = '0.7.0'
 
 # Make virtualenv path unique if installing multiple instance
@@ -10,6 +10,9 @@ default['celery-flower']['virtualenv'] = '/opt/celery_flower'
 # Override log file if multiple instance are created
 # eg; /var/log/celery-flower/celery-flower_5555.log
 default['celery-flower']['log_path'] = '/var/log/celery-flower/celery-flower.log'
+
+# Persistent is default and require .db
+default['celery-flower']['db_path'] = '/var/lib/celery-flower/celery-flower.db'
 
 # Note: This feture not included in this version
 default['celery-flower']['basic_auth'] = nil
