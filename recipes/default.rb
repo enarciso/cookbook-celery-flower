@@ -21,21 +21,25 @@ include_recipe 'build-essential'
 include_recipe 'python'
 include_recipe 'runit'
 
-user node['celery-flower']['user']
+user node['celery-flower']['user'] do
+  comment "default user to run celery-flower"
+  home "/home/#{node['celery-flower']['user']}"
+  shell "/bin/bash"
+end
+
 group node['celery-flower']['group']
 directory "/var/lib/celery-flower"
 
-#FIXME: Fix the rhel platform_family compatibility
-#case node['platform_family']
-#  when 'debian'
+case node['platform']
+  when 'debian'
     %w{python-dev libffi-dev ssl-cert}.each do |pkg|
       package pkg
     end
-#  when 'rhel'
-#    %w{python-devel libffi-devel crypto-utils}.each do |pkg|
-#      package pkg
-#    end
-#end
+  when 'rhel', 'fedora', 'centos'
+    %w{python-devel libffi-devel crypto-utils}.each do |pkg|
+      package pkg
+    end
+end
 
 python_virtualenv 'flower-virtualenv' do
   owner node['celery-flower']['user']
@@ -68,22 +72,6 @@ flower_cmd = sprintf("flower --log_file_prefix='%s' --port='%s' --auto_refresh -
   node['celery-flower']['db_path'],
   broker_url
 )
-
-#FIXME: run process other than root,
-#www-data can't acces .key file when in SSL mode (permission)
-#www-data can't write to /var/log/celery-flower because of permission
-#if node['celery-flower']['ssl']['enable']
-#  flower_cmd = sprintf("%s --certfile='%s' --keyfile='%s'",
-#    flower_cmd,
-#    node['celery-flower']['ssl']['cert'],
-#    node['celery-flower']['ssl']['key']
-#  )
-#  group "ssl-cert" do
-#    action :modify
-#    members "www-data"
-#    append true
-#  end
-#end
 
 if node['celery-flower']['auth']
   flower_cmd = sprintf("%s --auth='%s'",

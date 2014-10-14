@@ -22,6 +22,8 @@ include_recipe  'apache2::mod_ssl'
 include_recipe  'apache2::mod_proxy'
 include_recipe  'apache2::mod_proxy_http'
 include_recipe  'apache2::mod_rewrite'
+include_recipe  'apache2::mod_ldap'
+include_recipe  'apache2::mod_authnz_ldap'
 
 node.override['poise-proxy']['provider'] = 'apache'
 node.override['poise-proxy']['ssl_enabled'] = node['celery-flower']['ssl']['enable']
@@ -31,3 +33,5 @@ node.override['poise-proxy']['ssl_key_path'] = node['celery-flower']['ssl']['key
 poise_proxy node['fqdn'] do 
   port node['celery-flower']['listen_port']
 end
+
+apache_site node['fqdn']
