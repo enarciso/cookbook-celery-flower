@@ -25,10 +25,7 @@ platforms:
     box_url: http://opscode-vm-bento.s3.amazonaws.com/vagrant/virtualbox/opscode_centos-6.5_chef-provisionerless.box
 
 suites:
-  - name: default
+  - name: flower
     run_list:
       - recipe[flower-test::default]
     attributes:
-      celery-flower:
-        ssl:
-          enable: true
