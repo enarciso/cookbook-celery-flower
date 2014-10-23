@@ -18,7 +18,7 @@ default['celery-flower']['db_path'] = '/var/lib/celery-flower/celery-flower.db'
 default['celery-flower']['basic_auth'] = nil
 default['celery-flower']['auth'] = nil
 
-default['celery-flower']['listen_address'] = '0.0.0.0'
+default['celery-flower']['listen_address'] = '127.0.0.1'
 default['celery-flower']['listen_port'] = '5555'
 
 # Set 'ssl' to true to enable
