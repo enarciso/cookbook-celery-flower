@@ -66,8 +66,9 @@ broker_url = sprintf("%s://%s:%s@%s:%d/%s",
   node['celery-flower']['broker']['vhost']
 )
 
-flower_cmd = sprintf("flower --log_file_prefix='%s' --port='%s' --auto_refresh --persistent --db='%s' --broker='%s'",
+flower_cmd = sprintf("flower --log_file_prefix='%s' --address='%s' --port='%s' --auto_refresh --persistent --db='%s' --broker='%s'",
   node['celery-flower']['log_path'],
+  node['celery-flower']['listen_address'],
   node['celery-flower']['listen_port'],
   node['celery-flower']['db_path'],
   broker_url
