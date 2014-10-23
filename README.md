@@ -4,40 +4,27 @@ Installs and configures [flower](http://flower.readthedocs.org/en/latest/), a ba
 
 NOTE: This cookbook is a modified version of [BNOTIONS's](https://github.com/BNOTIONS/cookbook-flower) cookbook. RunIT is used instead of supervisor to deamonize the process. Added [apache2](https://github.com/onehealth-cookbooks/apache2) and [Posie's proxy](https://github.com/poise/poise-proxy) cookbook as reverse proxy 
 
-Attributes
-----------
-TODO: List your cookbook attributes here.
+Requirements
+============
 
-e.g.
-#### celery-flower::default
-<table>
-  <tr>
-    <th>Key</th>
-    <th>Type</th>
-    <th>Description</th>
-    <th>Default</th>
-  </tr>
-  <tr>
-    <td><tt>['celery-flower']['bacon']</tt></td>
-    <td>Boolean</td>
-    <td>whether to include bacon</td>
-    <td><tt>true</tt></td>
-  </tr>
-</table>
+Chef 0.10.0 or higher required (for Chef environment use)
+
+Platform
+========
+* Ubuntu 12.04 LTS
+* Centos 6.5
 
 Usage
 -----
 #### celery-flower::default
-TODO: Write usage instructions for each cookbook.
-
-e.g.
-Just include `celery-flower` in your node's `run_list`:
+Just include `celery-flower` in your node's `run_list` to get flower running. Add `celery-flower:apache` access it via port 80
 
 ```json
 {
   "name":"my_node",
   "run_list": [
-    "recipe[celery-flower]"
+    "recipe[celery-flower]",
+    "recipe[celery-flower::apache]"
   ]
 }
 ```
@@ -50,6 +37,15 @@ Contributing
 4. Write tests for your change (if applicable)
 5. Run the tests, ensuring they all pass
 6. Submit a Pull Request using Github
+
+Testing
+-------
+```
+bundle install
+```
+```
+kitchen test
+```
 
 License and Authors
 -------------------
