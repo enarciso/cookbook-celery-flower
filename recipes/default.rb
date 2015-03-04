@@ -31,11 +31,11 @@ group node['celery-flower']['group']
 directory "/var/lib/celery-flower"
 
 case node['platform']
-  when 'debian'
+  when 'debian', 'ubuntu'
     %w{python-dev libffi-dev ssl-cert}.each do |pkg|
       package pkg
     end
-  when 'rhel', 'fedora', 'centos'
+  when 'centos', 'redhat', 'amazon', 'scientific'
     %w{python-devel libffi-devel crypto-utils}.each do |pkg|
       package pkg
     end
