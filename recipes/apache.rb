@@ -30,8 +30,8 @@ node.override['poise-proxy']['ssl_enabled'] = node['celery-flower']['ssl']['enab
 node.override['poise-proxy']['ssl_cert_path'] = node['celery-flower']['ssl']['cert']
 node.override['poise-proxy']['ssl_key_path'] = node['celery-flower']['ssl']['key']
 
-poise_proxy node['fqdn'] do 
-  port node['celery-flower']['listen_port']
-end
+#poise_proxy node['fqdn'] do 
+#  port node['celery-flower']['listen_port']
+#end
 
 apache_site node['fqdn']
